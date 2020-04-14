@@ -1,12 +1,12 @@
-export type SearchProps = {
+export interface SearchProps {
   search: (searchValue: string) => void
 }
 
-export type MovieProps = {
+export interface MovieProps  {
   movie: IMovie
 }
 
-export type IMovie = {
+export interface IMovie {
   Title: string
   Year: string
   imdbID: string

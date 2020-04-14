@@ -1,41 +1,54 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useReducer } from 'react'
 import Search from './Search'
 import {IMovie, IData} from '../script/types'
 import Movie from './Movie'
+import reducer, {IState, ActinType} from '../reducer'
 
-const MOVIE_API_URL = 'https://www.omdbapi.com/?s=man&apikey=4a3b711b'
+const MOVIE_API_URL = 'https://www.omdbapi.com/?s=man&page=2&apikey=4a3b711b'
+
+const initialState: IState = {
+  loading: true,
+  errorMess: false,
+  movies: []
+}
 
 const App: React.FC = () => {
-  const [movies, setMovies] = useState<IMovie[]>([])
-  const [loading, setLoading] = useState(true)
-  const [errorMess, setErrorMess] = useState(false)
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
     fetch(MOVIE_API_URL)
       .then(res => res.json())
       .then((data: IData) => {
-        setMovies(data.Search)
-        setLoading(false)
-        console.log(data)
+        dispatch({
+          type: ActinType.findFilmSuccess,
+          payload: {
+            movies: data.Search
+          }
+        })
       })
   }, [])
 
 
   const search = (searchValue: string) => {
-    setLoading(true)
+    dispatch({type: ActinType.filmLoader})
     fetch(`https://www.omdbapi.com/?s=${searchValue}&apikey=4a3b711b`)
       .then(res => res.json())
       .then((data: IData) => {
         console.log(data)
         if (data.Response === 'True') {
-          setLoading(false)
-          setErrorMess(false)
-          setMovies(data.Search)
+          dispatch({
+            type: ActinType.findFilmSuccess,
+            payload: {
+              movies: data.Search
+            }
+          })
         } else {
-          setErrorMess(true)
+          dispatch({type: ActinType.findFilmError})
         }
       })
   }
+
+  const {loading, errorMess, movies } = state
 
   return (
     <React.Fragment>
