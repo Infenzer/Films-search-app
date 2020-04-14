@@ -22,6 +22,7 @@ const App: React.FC = () => {
 
 
   const search = (searchValue: string) => {
+    setLoading(true)
     fetch(`https://www.omdbapi.com/?s=${searchValue}&apikey=4a3b711b`)
       .then(res => res.json())
       .then((data: IData) => {
