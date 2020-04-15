@@ -1,9 +1,9 @@
 import { IMovie } from "./script/types";
 
 export enum ActinType {
-  findFilmSuccess = 'FILM_FIND_SUCCESS',
-  findFilmError = 'FILM_FIND_ERROR',
-  filmLoader = 'FILM_LOADER'
+  FIND_SUCCESS = 'FIND_SUCCESS',
+  FIND_ERROR = 'FIND_ERROR',
+  FILM_LOADER = 'FILM_LOADER'
 }
 
 export interface IState {
@@ -21,19 +21,19 @@ export interface IAction {
 
 const reducer: React.Reducer<IState, IAction> = (state, action) => {
   switch(action.type) {
-    case ActinType.findFilmSuccess:
+    case ActinType.FIND_SUCCESS:
       return {
-        ...state,
+        errorMess: false,
         loading: false,
         movies: action.payload.movies
       }
-    case ActinType.findFilmError: 
+    case ActinType.FIND_ERROR: 
       return {
         ...state,
         loading: false,
         errorMess: true
       }
-    case ActinType.filmLoader: 
+    case ActinType.FILM_LOADER: 
       return {
         ...state,
         loading: true

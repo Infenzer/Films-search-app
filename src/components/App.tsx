@@ -20,7 +20,7 @@ const App: React.FC = () => {
       .then(res => res.json())
       .then((data: IData) => {
         dispatch({
-          type: ActinType.findFilmSuccess,
+          type: ActinType.FIND_SUCCESS,
           payload: {
             movies: data.Search
           }
@@ -30,20 +30,20 @@ const App: React.FC = () => {
 
 
   const search = (searchValue: string) => {
-    dispatch({type: ActinType.filmLoader})
-    fetch(`https://www.omdbapi.com/?s=${searchValue}&apikey=4a3b711b`)
+    dispatch({type: ActinType.FILM_LOADER})
+    fetch(searchValue)
       .then(res => res.json())
       .then((data: IData) => {
         console.log(data)
         if (data.Response === 'True') {
           dispatch({
-            type: ActinType.findFilmSuccess,
+            type: ActinType.FIND_SUCCESS,
             payload: {
               movies: data.Search
             }
           })
         } else {
-          dispatch({type: ActinType.findFilmError})
+          dispatch({type: ActinType.FIND_ERROR})
         }
       })
   }
@@ -52,16 +52,18 @@ const App: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Search search = {search}/>
-      {loading && !errorMess ? (
-        <div>Загрузка</div>
-      ) : errorMess ? (
-        <div>Ничего не найдено</div>
-      ) : (
-        <div className="movie-wrapper">
-          {movies.map(movie => <Movie key = {movie.imdbID + movie.Title} movie ={movie}/>)}
-        </div>
-      )}
+      <div className="container-fluid">
+        <Search search = {search}/>
+        {loading && !errorMess ? (
+          <div>Загрузка</div>
+        ) : errorMess ? (
+          <div>Ничего не найдено</div>
+        ) : (
+          <div className="movie-wrapper">
+            {movies.map(movie => <Movie key = {movie.imdbID + movie.Title} movie ={movie}/>)}
+          </div>
+        )}
+      </div>
     </React.Fragment>
   )
 }
