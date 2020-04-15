@@ -3,7 +3,7 @@ import { ModalFilterProps } from '../script/types'
 
 const ModalFilter: React.FC<ModalFilterProps> = (props) => {
   const [isOpen, setOpen] = useState(false)
-  const [type, setType] = useState('movie')
+  const [type, setType] = useState('all')
   const [year, setYear] = useState('')
 
   const yearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,6 +41,7 @@ const ModalFilter: React.FC<ModalFilterProps> = (props) => {
             <div className="type-selector-wrapper">
               <span>Выбирите тип запроса: </span>
               <select name="type" onChange = {(e) => setType(e.target.value)}>
+                <option value="all">Все</option>
                 <option value="movie">Фильм</option>
                 <option value="series">Сериал</option>
                 <option value="episode">Эпизод</option>

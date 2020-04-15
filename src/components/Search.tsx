@@ -15,7 +15,11 @@ const Search: React.FC<SearchProps> = (props) => {
 
   const result = (value, type, year) => {
     console.log(value,type,year)
-    return `https://www.omdbapi.com/?s=${value}&y=${year}&type=${type}&apikey=4a3b711b`
+    const urlValue = `s=${value}`
+    const urlType = type !== 'all' ? `&type=${type}` : ''
+    const urlYear = year !== '' ? `&y=${year}` : ''
+
+    return `https://www.omdbapi.com/?${urlValue + urlYear + urlType}&apikey=4a3b711b`
   }
 
   const filter = (type: string, year: string) => {
