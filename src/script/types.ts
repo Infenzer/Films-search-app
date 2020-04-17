@@ -1,12 +1,18 @@
 import { SetStateAction } from "react";
 
 export interface SearchProps {
-  search: (searchValue: string) => void
+  search: (value: string, type: string, year: string) => void
 }
 
 export interface ModalFilterProps {
   setType: React.Dispatch<SetStateAction<string>>
   setYear: React.Dispatch<SetStateAction<string>>
+}
+
+
+export interface MoviesListPorps {
+  movies: IMovie[]
+  loading: boolean
 }
 
 export interface MovieProps  {

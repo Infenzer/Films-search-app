@@ -1,70 +1,56 @@
 import React, { useEffect, useState, useReducer } from 'react'
 import Search from './Search'
 import {IMovie, IData} from '../script/types'
-import Movie from './Movie'
-import reducer, {IState, ActinType} from '../reducer'
+import MoviesList from './MoviesList'
 
 const MOVIE_API_URL = 'https://www.omdbapi.com/?s=man&page=2&apikey=4a3b711b'
 
-const initialState: IState = {
-  loading: true,
-  errorMess: false,
-  movies: []
-}
-
 const App: React.FC = () => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [moviesList, setMoviesList] = useState([])
+  const [movies, setMovies] = useState<IMovie[]>([])
+  const [loading, setLoading] = useState(true)
+  const [errorMess, setErrorMess] = useState(false)
 
   useEffect(() => {
-    fetch(MOVIE_API_URL)
-      .then(res => res.json())
-      .then((data: IData) => {
-        dispatch({
-          type: ActinType.FIND_SUCCESS,
-          payload: {
-            movies: data.Search
-          }
-        })
-      })
+    filmsRequest(MOVIE_API_URL)
   }, [])
 
-
-  const search = (searchValue: string) => {
-    dispatch({type: ActinType.FILM_LOADER})
-    fetch(searchValue)
+  const filmsRequest = (searchURL: string) => {
+    fetch(searchURL)
       .then(res => res.json())
       .then((data: IData) => {
         console.log(data)
         if (data.Response === 'True') {
-          dispatch({
-            type: ActinType.FIND_SUCCESS,
-            payload: {
-              movies: data.Search
-            }
-          })
+          setLoading(false)
+          setErrorMess(false)
+          setMovies(data.Search)
         } else {
-          dispatch({type: ActinType.FIND_ERROR})
+          setErrorMess(true)
         }
       })
   }
 
-  const {loading, errorMess, movies } = state
+  const search = (value: string, type: string, year: string) => {
+    const urlValue = `s=${value}`
+    const urlType = type !== 'all' ? `&type=${type}` : ''
+    const urlYear = year !== '' ? `&y=${year}` : ''
+
+    const URL = `https://www.omdbapi.com/?${urlValue + urlYear + urlType}&apikey=4a3b711b`
+    setLoading(true)
+    filmsRequest(URL)
+  }
 
   return (
-    <React.Fragment>
-      <div className="container-fluid">
-        <Search search = {search}/>
-        {loading && !errorMess ? (
-          <div>Загрузка</div>
-        ) : errorMess ? (
-          <div>Ничего не найдено</div>
-        ) : (
-          <div className="movie-wrapper">
-            {movies.map(movie => <Movie key = {movie.imdbID + movie.Title} movie ={movie}/>)}
-          </div>
-        )}
-      </div>
-    </React.Fragment>
+    <div className="container-fluid">
+      <Search search = {search}/>
+      {errorMess ? (
+        <div>Ничего не найдено</div>
+      ) : (
+        <div className="movies-list-wrapper">
+          <MoviesList movies = {movies} loading = {loading}/>
+        </div>
+      )}
+    </div>
   )
 }
 

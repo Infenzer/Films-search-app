@@ -4,32 +4,19 @@ import ModalFilter from './ModalFilter'
 
 const Search: React.FC<SearchProps> = (props) => {
   const [value, setValue] = useState(``)
-  const [type, setType] = useState('movie')
-  const [year, setYear] = useState('2014')
+  const [type, setType] = useState('all')
+  const [year, setYear] = useState('')
 
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      props.search(result(value,type,year))
+      props.search(value, type, year)
     }
-  }
-
-  const result = (value, type, year) => {
-    console.log(value,type,year)
-    const urlValue = `s=${value}`
-    const urlType = type !== 'all' ? `&type=${type}` : ''
-    const urlYear = year !== '' ? `&y=${year}` : ''
-
-    return `https://www.omdbapi.com/?${urlValue + urlYear + urlType}&apikey=4a3b711b`
-  }
-
-  const filter = (type: string, year: string) => {
-    console.log(type, year)
   }
 
   return (
     <div className="search" onKeyPress = {handleKeyPress}>
       <input type="text" onChange = {(e) => setValue(e.target.value)} value = {value}/>
-      <button className="btn btn-primary" onClick = {() => props.search(result(value,type,year))}>Найти</button>
+      <button className="btn btn-primary" onClick = {() => props.search(value, type, year)}>Найти</button>
       <ModalFilter setType = {setType} setYear = {setYear}/>
     </div>
   )
