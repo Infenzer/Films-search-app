@@ -4,6 +4,7 @@ const Loader: React.FC = () => {
   const style = {
     width: '3rem',
     height: '3rem',
+    margin: '3rem'
   }
 
   return (

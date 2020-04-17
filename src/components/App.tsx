@@ -70,7 +70,9 @@ const App: React.FC = () => {
           {loading ? (
             <Loader/>
           ) : (
-            <button onClick = {handleMoviesLoader} className = 'btn-load-movie btn btn-info'>Загрузить ещё</button>
+            <div className="btn-wrapper">
+              <button onClick = {handleMoviesLoader} className = 'btn-load-movie btn btn-info'>Загрузить ещё</button>
+            </div>
           )}
         </div>
       )}
@@ -78,7 +80,7 @@ const App: React.FC = () => {
   )
 }
 
-const getURL = (value, year, page, type) => {
+const getURL = (value: string, year: string, page: number, type: string) => {
   const urlPage = `&page=${page}`
   const urlValue = value !== '' ? `s=${value}` : 's=man' 
   const urlType = type !== 'all' ? `&type=${type}` : ''

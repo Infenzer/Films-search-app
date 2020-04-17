@@ -5,23 +5,22 @@
   display: flex;
   flex-wrap:  wrap;
   width: 100%;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
 
   .btn-load-movie {
-    margin: 1em;
+    margin: 3em;
   }
 
-  .movies-list {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: center;
-
-    .movie  {
-      margin: .2em;
-      text-align: center;
-    }
+  .movie  {
+    margin: .2em;
+    text-align: center;
   }
+
+  // .movies-list {
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   width: 100%;
+  //   justify-content: center;
+  // }
 }

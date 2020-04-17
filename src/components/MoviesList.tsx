@@ -5,9 +5,9 @@ import { MoviesListPorps } from '../script/types'
 const MoviesList: React.FC<MoviesListPorps> = (props) => {
   const movies = props.movies
   return (
-    <div className="movies-list">
+    <React.Fragment>
       {movies.map(movie => <Movie key = {movie.imdbID + movie.Title} movie ={movie}/>)}
-    </div>
+    </React.Fragment>
   )
 }
 

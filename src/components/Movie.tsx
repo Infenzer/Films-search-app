@@ -12,7 +12,9 @@ const Movie: React.FC<MovieProps> = (props) => {
       <div className="poster">
         <img className="poster-img" src={poster} alt="" width = "250px"/>
       </div>
-      <div className="year"> {movie.Year} </div>
+      <div className="year">
+        <b> {movie.Year} </b>
+      </div>
     </div>
   )
 }
