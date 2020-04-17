@@ -3,51 +3,73 @@ import Search from './Search'
 import {IMovie, IData} from '../script/types'
 import MoviesList from './MoviesList'
 
-const MOVIE_API_URL = 'https://www.omdbapi.com/?s=man&page=2&apikey=4a3b711b'
+let urlValue = 's=man'
+let urlType = ''
+let urlYear = ''
+let page = 1
+
+const MOVIE_API_URL = `https://www.omdbapi.com/?${urlValue}&page=${page}&apikey=4a3b711b`
 
 const App: React.FC = () => {
-  const [moviesList, setMoviesList] = useState([])
-  const [movies, setMovies] = useState<IMovie[]>([])
+  const [moviesList, setMoviesList] = useState<IMovie[][]>([])
   const [loading, setLoading] = useState(true)
   const [errorMess, setErrorMess] = useState(false)
 
   useEffect(() => {
-    filmsRequest(MOVIE_API_URL)
+    moviesRequest(MOVIE_API_URL)
   }, [])
 
-  const filmsRequest = (searchURL: string) => {
+  const moviesRequest = (searchURL: string) => {
     fetch(searchURL)
       .then(res => res.json())
       .then((data: IData) => {
-        console.log(data)
+        console.log(data, searchURL)
         if (data.Response === 'True') {
           setLoading(false)
           setErrorMess(false)
-          setMovies(data.Search)
+
+          setMoviesList(prevState => [...prevState, data.Search])
         } else {
           setErrorMess(true)
         }
       })
   }
 
-  const search = (value: string, type: string, year: string) => {
-    const urlValue = `s=${value}`
-    const urlType = type !== 'all' ? `&type=${type}` : ''
-    const urlYear = year !== '' ? `&y=${year}` : ''
+  const handleMoviesLoader = () => {
+    page ++
+    const urlPage = `&page=${page}`
+    const URL = `https://www.omdbapi.com/?${urlValue + urlYear + urlType + urlPage}&apikey=4a3b711b`
 
-    const URL = `https://www.omdbapi.com/?${urlValue + urlYear + urlType}&apikey=4a3b711b`
     setLoading(true)
-    filmsRequest(URL)
+    moviesRequest(URL)
+  }
+
+  const search = (value: string, type: string, year: string) => {
+    const urlPage = `&page=1`
+    urlValue = `s=${value}`
+    urlType = type !== 'all' ? `&type=${type}` : ''
+    urlYear = `&y=${year}` 
+
+    const URL = `https://www.omdbapi.com/?${urlValue + urlYear + urlType + urlPage}&apikey=4a3b711b`
+    setMoviesList([])
+    setLoading(true)
+    moviesRequest(URL)
   }
 
   return (
     <div className="container-fluid">
       <Search search = {search}/>
-      {errorMess ? (
+      {(errorMess) ? (
         <div>Ничего не найдено</div>
       ) : (
         <div className="movies-list-wrapper">
-          <MoviesList movies = {movies} loading = {loading}/>
+          {moviesList.map((movies, index) => <MoviesList key = {index} movies = {movies} loading = {loading}/>)}
+          
+          {loading ? (
+            <div>Загрузка</div>
+          ) : (
+            <button onClick = {handleMoviesLoader} className = 'btn-load-movie btn btn-info'>Загрузить ещё</button>
+          )}
         </div>
       )}
     </div>
