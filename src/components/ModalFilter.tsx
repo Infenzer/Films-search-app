@@ -44,7 +44,6 @@ const ModalFilter: React.FC<ModalFilterProps> = (props) => {
                 <option value="all">Все</option>
                 <option value="movie">Фильм</option>
                 <option value="series">Сериал</option>
-                <option value="episode">Эпизод</option>
               </select>
             </div>
             <div className="btn-wrapper">

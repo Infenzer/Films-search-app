@@ -1,7 +1,11 @@
 import { SetStateAction } from "react";
 
 export interface SearchProps {
-  search: (value: string, type: string, year: string) => void
+  search: () => void
+  value: string
+  setValue: React.Dispatch<SetStateAction<string>>
+  setType: React.Dispatch<SetStateAction<string>>
+  setYear: React.Dispatch<SetStateAction<string>>
 }
 
 export interface ModalFilterProps {
