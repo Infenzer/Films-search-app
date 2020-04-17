@@ -1,5 +1,5 @@
 import React, { useState, KeyboardEvent } from 'react'
-import {SearchProps} from '../script/types'
+import {SearchProps} from '../../script/mainPageTypes'
 import ModalFilter from './ModalFilter'
 
 const Search: React.FC<SearchProps> = (props) => {

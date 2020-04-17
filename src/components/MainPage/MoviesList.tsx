@@ -1,6 +1,6 @@
 import React from 'react'
 import Movie from './Movie'
-import { MoviesListPorps } from '../script/types'
+import { MoviesListPorps } from '../../script/mainPageTypes'
 
 const MoviesList: React.FC<MoviesListPorps> = (props) => {
   const movies = props.movies

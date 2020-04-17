@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ModalFilterProps } from '../script/types'
+import { ModalFilterProps } from '../../script/mainPageTypes'
 
 const ModalFilter: React.FC<ModalFilterProps> = (props) => {
   const [isOpen, setOpen] = useState(false)
