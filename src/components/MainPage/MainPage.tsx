@@ -59,12 +59,14 @@ const MainPage: React.FC = () => {
   }
 
   return (
-    <div className="container-lg">
-      <Search search = {search} value = {value} setType = {setType} setValue = {setValue} setYear = {setYear}/>
+    <div className="main-page">
+      <div className="header">
+        <Search search = {search} value = {value} setType = {setType} setValue = {setValue} setYear = {setYear}/>
+      </div>
       {(errorMess) ? (
         <div>Ничего не найдено</div>
       ) : (
-        <div className="movies-list-wrapper">
+        <div className="container-lg movies-list-wrapper">
           {moviesList.map((movies, index) => <MoviesList key = {index} movies = {movies} loading = {loading}/>)}
 
           {loading ? (

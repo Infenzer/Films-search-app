@@ -1,26 +1,22 @@
-@import './modalFilter.scss';
-@import './search.scss';
+@import './MovieDetalis/movieDetalis.scss';
+@import './MainPage/mainPageStyle.scss';
 
-.movies-list-wrapper {
-  display: flex;
-  flex-wrap:  wrap;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
+body, 
+ul {
+  margin: 0;
+  padding: 0;
+}
 
-  .btn-load-movie {
-    margin: 3em;
-  }
+a {
+  color: black;
+  text-decoration: none;
+}
 
-  .movie  {
-    margin: .2em;
-    text-align: center;
-  }
+a:hover {
+  color: black;
+  text-decoration: none;
+}
 
-  // .movies-list {
-  //   display: flex;
-  //   flex-wrap: wrap;
-  //   width: 100%;
-  //   justify-content: center;
-  // }
+li {
+  list-style: none;
 }

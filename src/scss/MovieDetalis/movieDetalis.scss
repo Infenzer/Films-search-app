@@ -1,0 +1,17 @@
+@import './movieCard.scss';
+@import './loader.scss';
+
+.movie-detalis {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75px;
+    background: black;
+    margin-bottom: 1em;
+
+    a {
+      color: white;
+    }
+  }
+}

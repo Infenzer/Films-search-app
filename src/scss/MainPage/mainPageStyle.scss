@@ -1,0 +1,39 @@
+@import './modalFilter.scss';
+@import './search.scss';
+
+.movies-list-wrapper {
+  display: flex;
+  flex-wrap:  wrap;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+
+  .btn-load-movie {
+    margin: 3em;
+  }
+
+  .movie  {
+    display: flex;
+    margin: .2em;
+    text-align: center;
+    justify-content: center;
+
+    img {
+      width: 250px;
+      height: 370px;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 75px;
+  background: black;
+  margin-bottom: 1em;
+
+  a {
+    color: white;
+  }
+}

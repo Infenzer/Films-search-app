@@ -11,7 +11,7 @@ const Movie: React.FC<MovieProps> = (props) => {
       <a href={`/movie/${movie.imdbID}`}>
         <div className="title p-3 mb-2 bg-secondary text-white"> {movie.Title} ({movie.Type}) </div>
         <div className="poster">
-          <img className="poster-img" src={poster} alt="" width = "250px"/>
+          <img className="poster-img" src={poster}/>
         </div>
         <div className="year">
           <b> {movie.Year} </b>
