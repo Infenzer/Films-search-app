@@ -13,6 +13,11 @@
 
     .raitings {
       margin: 1em;
+
+      .metacritic, .rotten-tomatoes {
+        width: 100px;
+        margin: .5em;
+      }
     }
   }
 

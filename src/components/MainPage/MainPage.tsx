@@ -19,6 +19,9 @@ const MainPage: React.FC = () => {
   const [loading, setLoading] = useState(true)
   const [errorMess, setErrorMess] = useState(false)
 
+  //Состояние кнопки
+  const [btnActive, setBtnActive] = useState(true)
+
   useEffect(() => {
     moviesRequest(MOVIE_API_URL)
   }, [])
@@ -27,8 +30,14 @@ const MainPage: React.FC = () => {
     fetch(searchURL)
       .then(res => res.json())
       .then((data: IData) => {
-        console.log(data, searchURL)
+        //console.log(data, searchURL)
         if (data.Response === 'True') {
+          if (parseInt(data.totalResults) <= 10) {
+            setBtnActive(false)
+          } else {
+            setBtnActive(true)
+          }
+
           setLoading(false)
           setErrorMess(false)
 
@@ -73,7 +82,9 @@ const MainPage: React.FC = () => {
             <Loader/>
           ) : (
             <div className="btn-wrapper">
-              <button onClick = {handleMoviesLoader} className = 'btn-load-movie btn btn-info'>Загрузить ещё</button>
+              {btnActive && (
+                <button onClick = {handleMoviesLoader} className = 'btn-load-movie btn btn-info'>Загрузить ещё</button>
+              )}
             </div>
           )}
         </div>

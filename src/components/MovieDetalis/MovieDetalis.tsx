@@ -10,6 +10,7 @@ const MovieDetalis: React.FC<MovieDetalisProps> = (props) => {
   console.log(props.match.params.id)
 
   const [loading, setLoading] = useState(true)
+  const [errorMess, setErrorMess] = useState(false)
 
   useEffect(() => {
     const URL = `https://www.omdbapi.com/?i=${props.match.params.id}&apikey=4a3b711b`
@@ -17,25 +18,27 @@ const MovieDetalis: React.FC<MovieDetalisProps> = (props) => {
     fetch(URL)
       .then(res => res.json())
       .then((resData) => {
-        console.log(resData)
-        movieInfo = resData
-        setLoading(false)
+        if (resData.Response === 'True') {
+          //console.log(resData)
+          movieInfo = resData
+          setLoading(false)
+          setErrorMess(false)
+        } else {
+          setErrorMess(true)
+        }
       })
   }, [])
 
   return(
     <React.Fragment>
-      {loading ? (
+      {(loading && !errorMess) ? (
         <div className="loader">
           <Loader/>
         </div>
+      ) : (errorMess) ? (
+        <div>Ошибка</div>
       ) : (
-        <div className = 'movie-detalis'>
-          <div className="header">
-            <h2><a href="/">НА ГЛАВНУЮ</a></h2>
-          </div>
-          <MovieCard info = {movieInfo}/>
-        </div>
+        <MovieCard info = {movieInfo}/>
       )}
     </React.Fragment>
   )
