@@ -4,7 +4,7 @@
 
   [1]: http://www.omdbapi.com/
 
-![The Movie DB in Reactjs](https://github.com/aaqibkhaan/reactMovieDB/blob/master/gitHub/screenApp.gif)
+![Image alt](https://github.com/Infenzer/Films-search-app/raw/master/gitHub/screenApp.gif)
 
 ### Запуск
 * Скопировать репозиторий по https://github.com/Infenzer/Films-search-app.git.
